@@ -1,11 +1,11 @@
 const db = require('../db.js');
 
 exports.login = (req, res) => {
-  const { user_id, password } = req.body;
+  const { username, password } = req.body;
 
   db.query(
-    'SELECT user_id, username, nickname FROM AI WHERE user_id = ? AND password = ?',
-    [user_id, password],
+    'SELECT user_id, username, nickname FROM users WHERE username = ? AND password = ?',
+    [username, password],
     (err, result) => {
       if (err) {
         console.error('로그인 오류:', err);
