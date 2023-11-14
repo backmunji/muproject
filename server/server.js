@@ -8,8 +8,8 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// const loginRouter = require('./routes/login'); 
-// app.use('/api/login', loginRouter); 
+const mypageRouter = require('./routes/mypg');
+app.use('http://localhost:3003/api', mypageRouter);
 
 const port = process.env.PORT || 3003;
 app.listen(port, () => {

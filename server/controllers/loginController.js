@@ -1,25 +1,25 @@
-// const db = require('../db.js');
+const db = require('../db.js');
 
-// exports.login = (req, res) => {
-//   const { studentID } = req.body;
+exports.login = (req, res) => {
+  const { user_id, password } = req.body;
 
-//   db.query(
-//     'SELECT studentID, studentNumber, studentName FROM student WHERE studentID = ?',
-//     [studentID],
-//     (err, result) => {
-//       if (err) {
-//         console.error('로그인 오류:', err);
-//         return res.status(500).json({ message: '로그인 오류' });
-//       }
+  db.query(
+    'SELECT user_id, username, nickname FROM AI WHERE user_id = ? AND password = ?',
+    [user_id, password],
+    (err, result) => {
+      if (err) {
+        console.error('로그인 오류:', err);
+        return res.status(500).json({ message: '로그인 오류' });
+      }
 
-//       if (result.length === 0) {
-//         return res.status(401).json({ message: '로그인 실패' });
-//       }
+      if (result.length === 0) {
+        return res.status(401).json({ message: '로그인 실패' });
+      }
       
-//       const student = result[0]; 
-//       const {studentID, studentNumber, studentName } = student;
+      const user = result[0]; 
+      const { user_id, username, nickname } = user;
       
-//       res.status(200).json({ message: '로그인 성공', studentID, studentNumber, studentName });
-//     }
-//   );
-// };
+      res.status(200).json({ message: '로그인 성공', user_id, username, nickname });
+    }
+  );
+};
