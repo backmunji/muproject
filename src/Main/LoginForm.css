@@ -1,0 +1,70 @@
+/* LoginForm.css */
+
+#cd-login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    width: 350px;
+  }
+  
+  .cd-form {
+    width: 100%;
+  }
+  
+  .cd-form .fieldset {
+    margin-bottom: 15px;
+    width: 100%;
+  }
+  
+  .cd-form label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .cd-form input[type="text"],
+  .cd-form input[type="password"] {
+    width: calc(100% - 10px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .cd-form input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: skyblue;
+    color: white;
+    text-transform: uppercase;
+  }
+  
+  .cd-form input[type="submit"]:hover {
+    background-color: #4a90e2;
+  }
+  
+  .cd-error-message {
+    color: red;
+    font-size: 14px;
+  }
+  
+  .cd-form-bottom-message button {
+    margin: 0 5px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    text-transform: uppercase;
+  }
+  
+  .cd-form-bottom-message button:hover {
+    background-color: rgba(37, 37, 37, 0.5);
+  }
+  
