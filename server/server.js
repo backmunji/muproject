@@ -12,6 +12,8 @@ const signupRouter = require('./routes/signup');
 app.use('/api/signup', signupRouter);
 const loginRouter = require('./routes/login'); 
 app.use('/api/login', loginRouter); 
+const mypageRouter = require('./routes/mypage');
+app.use('/api/mypage', mypageRouter);
 
 const port = process.env.PORT || 3003;
 app.listen(port, () => {

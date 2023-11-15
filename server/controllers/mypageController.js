@@ -1,25 +1,32 @@
-//  const db = require('../db.js');
+// // controllers/mypageController.js
 
-// exports.mypg = (req, res) => {
+// const db = require('../db'); // db.js 파일에 데이터베이스 연결 설정이 들어있어야 합니다.
+// const bcrypt = require('bcrypt');
+
+// // 마이페이지 정보 조회
+// exports.mypage = async (req, res) => {
 //   const { username, password } = req.body;
 
-//   db.query(
-//     'SELECT user_id, username, nickname, money, coin1, coin2, coin3 FROM users WHERE username = ? AND password = ?',
-//     [username, password],
-//     (err, result) => {
-//       if (err) {
-//         console.error('로그인 오류:', err);
-//         return res.status(500).json({ message: '로그인 오류' });
-//       }
+//   try {
+//     const user = await db.query('SELECT * FROM users WHERE username = ?', [username]);
 
-//       if (result.length === 0) {
-//         return res.status(401).json({ message: '로그인 실패' });
-//       }
-
-//       const user = result[0];
-//       const { user_id, username, nickname, money, coin1, coin2, coin3 } = user;
-
-//       res.status(200).json({ message: '로그인 성공', user_id, username, nickname, money, coin1, coin2, coin3 });
+//     if (user.length === 0) {
+//       return res.status(401).json({ message: '로그인 실패' });
 //     }
-//   );
+
+//     const isPasswordMatch = await bcrypt.compare(password, user[0].password);
+
+//     if (!isPasswordMatch) {
+//       return res.status(401).json({ message: '로그인 실패' });
+//     }
+
+//     res.status(200).json({
+//       message: '로그인 성공',
+//       username: user[0].username,
+//       nickname: user[0].nickname,
+//     });
+//   } catch (error) {
+//     console.error('로그인 중 오류 발생:', error);
+//     res.status(500).json({ message: '로그인 중 오류 발생' });
+//   }
 // };
