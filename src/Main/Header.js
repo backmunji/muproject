@@ -1,9 +1,49 @@
 import React, { useState } from 'react';
 import './Header.css';
+import axios from 'axios';
 
 const Header = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isLoginForm, setIsLoginForm] = useState(true);
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [nickname, setNickname] = useState('');
+
+    const handleSignUp = async () => {
+      try {
+        console.log(username,password,nickname);
+        // axios를 사용한 서버로 데이터 전송
+        const response = await axios.post('http://localhost:3003/api/signup', {
+          username,
+          password,
+          nickname,
+        });
+        
+  
+        if (response.status === 201) {
+          console.log(response.data.message); // 회원가입 성공 메시지
+        } else {
+          console.error('회원가입 실패');
+        }
+      } catch (error) {
+        console.error('회원가입 오류:', error);
+      }
+    };
+
+    const handleLogin = async () => {
+      try {
+        const response = await axios.post('http://localhost:3003/api/login', {
+          username: username,
+          password: password,
+        });
+  
+        console.log(response.data.message);
+        console.log('로그인 완료');
+      } catch (error) {
+        console.error('로그인 에러:', error);
+      }
+    };
+  
   
     const toggleModal = () => {
       setIsModalOpen(!isModalOpen);
@@ -58,17 +98,20 @@ const Header = () => {
   };
   const formContent = isLoginForm ? (
     <div id="cd-login">
-      <form className="cd-form" onSubmit={handleSubmit}>
+      <form className="cd-form">
         <p className="fieldset">
-          <label className="image-replace cd-email" htmlFor="signin-email">닉네임</label>
-          <input className="full-width has-padding has-border" id="signin-email" type="text" placeholder="Nickname" required />
+          <label className="image-replace cd-email" htmlFor="signin-email">아이디</label>
+          <input className="full-width has-padding has-border" id="signin-email" type="text" placeholder="username" required 
+          value={username} onChange={(e) => setUsername(e.target.value)}/>
         </p>
         <p className="fieldset">
           <label className="image-replace cd-password" htmlFor="signin-password">비밀번호</label>
-          <input className="full-width has-padding has-border" id="signin-password" type="password" placeholder="Password" required />
+          <input className="full-width has-padding has-border" id="signin-password" type="password" placeholder="Password" required
+          value={password} onChange={(e) => setPassword(e.target.value)} />
         </p>        
         <p className="fieldset">
-          <input className="full-width" type="submit" value="Login" />
+          <input className="full-width" type="submit" value="Login" 
+          onClick={handleLogin}/>
         </p>
       </form>
       <p className="cd-form-bottom-message">
@@ -78,21 +121,24 @@ const Header = () => {
     </div>
   ) : (
     <div id="cd-signup">
-      <form className="cd-form" onSubmit={handleSubmit}>
+      <form className="cd-form">
         <p className="fieldset">
-          <label className="image-replace cd-username" htmlFor="signup-username">이름</label>
-          <input className="full-width has-padding has-border" id="signup-username" type="text" placeholder="Name" required />
+          <label className="image-replace cd-username" htmlFor="signup-username">아이디</label>
+          <input className="full-width has-padding has-border" id="signup-username" type="text" placeholder="username"
+          value={username} onChange={(e) => setUsername(e.target.value)} required />
         </p>
         <p className="fieldset">
           <label className="image-replace cd-email" htmlFor="signup-email">닉네임</label>
-          <input className="full-width has-padding has-border" id="signin-email" type="text" placeholder="Nickname" required />
+          <input className="full-width has-padding has-border" id="signin-email" type="text" placeholder="Nickname"
+          value={nickname} onChange={(e) => setNickname(e.target.value)} required />
         </p>
         <p className="fieldset">
           <label className="image-replace cd-password" htmlFor="signup-password">비밀번호</label>
-          <input className="full-width has-padding has-border" id="signup-password" type="password" placeholder="Password" required />
+          <input className="full-width has-padding has-border" id="signup-password" type="password" placeholder="Password"
+          value={password} onChange={(e) => setPassword(e.target.value)} required />
         </p>        
         <p className="fieldset">
-          <input className="full-width has-padding" type="submit" value="Create account" />
+          <input className="full-width has-padding" type="submit" value="Create account" onClick={handleSignUp} />
         </p>
       </form>
       <p className="cd-form-bottom-message">
@@ -101,6 +147,8 @@ const Header = () => {
       </p>
     </div>
   );
+
+  
 
   return (
     <div>
