@@ -8,8 +8,10 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// const loginRouter = require('./routes/login'); 
-// app.use('/api/login', loginRouter); 
+const signupRouter = require('./routes/signup');
+app.use('/api/signup', signupRouter);
+const loginRouter = require('./routes/login'); 
+app.use('/api/login', loginRouter); 
 
 const port = process.env.PORT || 3003;
 app.listen(port, () => {
